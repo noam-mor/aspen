@@ -125,7 +125,7 @@ a {
     --c-text: #1a1a1a;
     --c-text-light: #707070;
     --c-text-meta: #999999;
-    --c-background: #fffcf5; 
+    --c-background: #fffefd; 
     --c-border: #e0e0e0;     
     --c-hover: #f8f8f8;
 
@@ -864,4 +864,140 @@ body {
     font-family: var(--font-primary-family);
     font-weight: 500;
     font-size: var(--h1-text);
+}
+
+
+
+/* --------------------------- */
+/* --- issue_1_item_3.html --- */
+/* --------------------------- */
+
+.aspen-audio-wrapper {
+    margin-top: 1.5rem;
+    border: 2px solid var(--c-text); 
+    background: var(--c-background);
+    padding: 10px;
+    position: relative;
+}
+
+.custom-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.play-pause-btn {
+    width: 80px;
+    height: 80px;
+    border: none;
+    background: var(--c-text); 
+    color: var(--c-background); 
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.05);
+}
+
+.play-pause-btn:active {
+    transform: scale(0.95);
+}
+
+.play-pause-btn .icon {
+    display: block;
+    width: 0; 
+    height: 0; 
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.play-pause-btn .icon.play-icon {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 20px solid var(--c-background); 
+}
+
+.play-pause-btn.playing {
+    background: var(--c-background);
+    border: 2px solid var(--c-text);
+    color: var(--c-text);
+}
+
+.play-pause-btn.playing .icon {
+    width: 16px;
+    height: 16px;
+    background-color: var(--c-text);
+    border: none;
+}
+
+.play-pause-btn .label {
+    font-family: var(--font-shemi);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.progress-track {
+    flex-grow: 1;
+    height: 40px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--c-border),
+        var(--c-border) 2px,
+        transparent 2px,
+        transparent 6px
+    ); 
+    position: relative;
+    border: 1px solid var(--c-text);
+    display: flex;
+    align-items: center;
+}
+
+.progress-fill {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: var(--c-text);
+    width: 0%; 
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    transition: width 0.1s linear;
+}
+
+.seek-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.seek-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 5px;
+    height: 40px;
+    background: var(--c-text);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.time-display {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--c-text);
+    min-width: 120px;
+    text-align: left;
+    direction: ltr;
 }

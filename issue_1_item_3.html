@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[01] פריט 3</title>
     <link rel="stylesheet" href="style.css">
-    <!-- ADD Icon -->
-    <!-- <link rel="icon" type="images/icon" href="images/icon.png"> -->
-</head>
+    </head>
 <body>
     <div class="wrapper">
 
@@ -25,6 +23,7 @@
                 <p class="note">לקריאת הטקסט המלווה, ראו <a class="note-link" href="issue_1_item_2.html">פריט 2</a></p>
 
                 <div class="audio-section">
+                    
                     <div class="track-entry">
                         <h2>St. James Infirmary Blues</h2>
                         <div class="musicians">
@@ -55,10 +54,27 @@
                             </div>
                         </div>
 
-                        <audio controls class="audio-player">
-                            <source src="images/no_1/item_3/stJames.mp3" type="audio/mpeg">
-                        </audio>
-
+                        <div class="aspen-audio-wrapper" id="audio-component-1">
+                            <audio id="audio-1" preload="metadata">
+                                <source src="audio/item_3/stJames.mp3" type="audio/mpeg">
+                            </audio>
+                        
+                            <div class="custom-controls">
+                                <button class="play-pause-btn" data-audio="audio-1">
+                                    <span class="icon play-icon"></span>
+                                    <span class="label">ניגון</span>
+                                </button>
+                        
+                                <div class="progress-track">
+                                    <div class="progress-fill"></div>
+                                    <input type="range" class="seek-slider" min="0" max="100" value="0" step="1" data-audio="audio-1">
+                                </div>
+                        
+                                <div class="time-display">
+                                    <span class="current-time">00:00</span> / <span class="duration-time">00:00</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="meta-data">
                             <p class="duration">משך: 06:10</p>
                             <p class="file-info">MP3 1.7 MB (40 kbps)</p>
@@ -84,10 +100,27 @@
                             </div>
                         </div>
 
-                        <audio controls class="audio-player">
-                            <source src="images/no_1/item_3/israel.mp3" type="audio/mpeg">
-                        </audio>
-
+                        <div class="aspen-audio-wrapper" id="audio-component-2">
+                            <audio id="audio-2" preload="metadata">
+                                <source src="audio/item_3/israel.mp3" type="audio/mpeg">
+                            </audio>
+                        
+                            <div class="custom-controls">
+                                <button class="play-pause-btn" data-audio="audio-2">
+                                    <span class="icon play-icon"></span>
+                                    <span class="label">ניגון</span>
+                                </button>
+                        
+                                <div class="progress-track">
+                                    <div class="progress-fill"></div>
+                                    <input type="range" class="seek-slider" min="0" max="100" value="0" step="1" data-audio="audio-2">
+                                </div>
+                        
+                                <div class="time-display">
+                                    <span class="current-time">00:00</span> / <span class="duration-time">00:00</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="meta-data">
                             <p class="duration">משך: 04:47</p>
                             <p class="file-info">MP3 1.3 MB (40 kbps)</p>
@@ -103,7 +136,83 @@
                 <p class="text format-details">תקליט פלסטיק גמיש (Flexi-disc) בקוטר "7-1/4, מהירות 33-1/3 סל"ד (RPM), הקלטה סטריאופונית.</p>
             </div>
             <p class="credits-and-rights">עובד לאינטרנט על ידי אנדרו סטפורד. כל הזכויות שמורות לבעליהן בהתאמה.</p>
-            <!-- <p>Asfan &copy; 2026. כל הזכויות שמורות.</p> -->
-        </div>
-    </body>
+            </div>
+
+    </div> <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // פונקציה שמפרמטת שניות לזמן 00:00
+            const formatTime = (seconds) => {
+                const minutes = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            };
+        
+            // עבור כל נגן בעמוד
+            document.querySelectorAll('.aspen-audio-wrapper').forEach(wrapper => {
+                const audio = wrapper.querySelector('audio');
+                const playBtn = wrapper.querySelector('.play-pause-btn');
+                const icon = playBtn.querySelector('.icon');
+                const label = playBtn.querySelector('.label');
+                const slider = wrapper.querySelector('.seek-slider');
+                const fill = wrapper.querySelector('.progress-fill');
+                const currentTimeEl = wrapper.querySelector('.current-time');
+                const durationEl = wrapper.querySelector('.duration-time');
+        
+                // טעינת המטא-דאטה (אורך השיר)
+                audio.addEventListener('loadedmetadata', () => {
+                    durationEl.textContent = formatTime(audio.duration);
+                    slider.max = Math.floor(audio.duration);
+                });
+        
+                // כפתור ניגון/השהיה
+                playBtn.addEventListener('click', () => {
+                    if (audio.paused) {
+                        // עצור את כל האחרים קודם
+                        document.querySelectorAll('audio').forEach(a => {
+                            if(a !== audio) { 
+                                a.pause(); 
+                                const otherWrapper = a.closest('.aspen-audio-wrapper');
+                                if (otherWrapper) {
+                                     otherWrapper.querySelector('.play-pause-btn').classList.remove('playing');
+                                     otherWrapper.querySelector('.label').textContent = "ניגון";
+                                }
+                            }
+                        });
+        
+                        audio.play();
+                        playBtn.classList.add('playing');
+                        label.textContent = "עצור";
+                    } else {
+                        audio.pause();
+                        playBtn.classList.remove('playing');
+                        label.textContent = "ניגון";
+                    }
+                });
+        
+                // עדכון זמן בזמן אמת
+                audio.addEventListener('timeupdate', () => {
+                    slider.value = audio.currentTime;
+                    currentTimeEl.textContent = formatTime(audio.currentTime);
+                    
+                    // חישוב אחוזים למילוי הבר השחור
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    fill.style.width = `${percent}%`;
+                });
+        
+                // גרירה של הסליידר
+                slider.addEventListener('input', () => {
+                    audio.currentTime = slider.value;
+                });
+        
+                // כשהשיר נגמר
+                audio.addEventListener('ended', () => {
+                    playBtn.classList.remove('playing');
+                    label.textContent = "ניגון";
+                    fill.style.width = '0%';
+                });
+            });
+        });
+        </script>
+</body>
 </html>
