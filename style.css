@@ -946,29 +946,39 @@ body:has( .image-container:hover ) {
 /* --------------------------- */
 
 .page.main-content.letter {
-    /* margin-left: 200px; */
-    /* margin-right: 200px; */
-    /* margin-bottom: 150px; */
     padding: 0 10rem;
     font-family: var(--font-shemi);
-    font-weight: 500;
-}
-
-.writer-name {
-    font-weight: 700;
+    font-size: var(--running-text-small);
 }
 
 .page.main-content.letter h1{
-    /* margin-left: 200px; */
-    /* margin-right: 200px; */
-    /* margin-bottom: 150px; */
     padding: 0 10rem;
     font-family: var(--font-primary-family);
     font-weight: 500;
     font-size: var(--h1-text);
 }
 
+.letter-container {
+    justify-self: center;
+    width: 750px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--end-of-secton-spacing);
+    margin-top: var(--header-and-content);
+    border: 0.5px solid var(--c-text-meta);
+    padding: 40px 60px 40px 60px;
+}
 
+.image.signature {
+    padding-top: 10px;
+    align-self: flex-end;
+}
+
+.image.letterhead {
+    padding-bottom: 40px;
+    align-self: flex-end;
+    justify-self: center;
+}
 
 /* --------------------------- */
 /* --- issue_1_item_3.html --- */
