@@ -1,17 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* =========================================
-       1. Audio Player Logic (נגני אודיו)
+       Audio Player Logic
        ========================================= */
     
-    // פונקציית עזר לפרמוט זמן (00:00)
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
-    // אתחול כל הנגנים בעמוד
     document.querySelectorAll('.aspen-audio-wrapper').forEach(wrapper => {
         const audio = wrapper.querySelector('audio');
         const playBtn = wrapper.querySelector('.play-pause-btn');
@@ -21,16 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentTimeEl = wrapper.querySelector('.current-time');
         const durationEl = wrapper.querySelector('.duration-time');
 
-        // טעינת אורך השיר
         audio.addEventListener('loadedmetadata', () => {
             durationEl.textContent = formatTime(audio.duration);
             slider.max = Math.floor(audio.duration);
         });
 
-        // כפתור ניגון/השהיה
         playBtn.addEventListener('click', () => {
             if (audio.paused) {
-                // עצירת כל הנגנים האחרים
                 document.querySelectorAll('audio').forEach(a => {
                     if(a !== audio) { 
                         a.pause(); 
@@ -52,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // עדכון הבר והזמן תוך כדי ניגון
         audio.addEventListener('timeupdate', () => {
             slider.value = audio.currentTime;
             currentTimeEl.textContent = formatTime(audio.currentTime);
@@ -76,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       2. Interactive Toggles (ציטוטים + תובנות)
+       Interactive Toggles
        ========================================= */
     
     // בוחר גם את הציטוטים וגם את ה-Insights
@@ -95,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       3. Image Hover Effects (החשכת מסך)
+       Image Hover Effects 
        ========================================= */
     
     const activeImages = document.querySelectorAll('.image-wrapper, .image-container');
@@ -113,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       4. Films Gallery Logic (גלריית סרטים + Cinema Mode)
+       Films Gallery Logic + Cinema Mode
        ========================================= */
     
     const track = document.querySelector('.films-track');
@@ -127,22 +121,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let currentIndex = 0;
 
-        // עדכון סך כל הסרטים
         if (totalCounter) {
             totalCounter.textContent = slides.length;
         }
 
-        // --- הוספה חדשה: ניהול אפקט החושך (Cinema Mode) ---
         const handleCinemaMode = () => {
             slides.forEach(slide => {
                 const video = slide.querySelector('video');
                 if (video) {
-                    // כשהסרט מתחיל לנגן -> מחשיכים
                     video.addEventListener('play', () => {
                         document.body.classList.add('cinema-mode');
                     });
 
-                    // כשהסרט עוצר או נגמר -> מחזירים אור
                     video.addEventListener('pause', () => {
                         document.body.classList.remove('cinema-mode');
                     });
@@ -152,9 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         };
-        // הפעלת הפונקציה
+
         handleCinemaMode();
-        // ---------------------------------------------------
 
         const updateGallery = (index) => {
             const amountToMove = index * 100;
@@ -167,13 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentCounter.textContent = index + 1;
             }
 
-            // עצירת וידאו במעבר שקופית
             slides.forEach((slide, i) => {
                 if (i !== index) {
                     const video = slide.querySelector('video');
                     if (video) {
-                        video.pause(); // זה גם יבטל את ה-cinema-mode אוטומטית בגלל ה-Listener למעלה
-                        video.currentTime = 0; // איפוס להתחלה (אופציונלי)
+                        video.pause();
+                        video.currentTime = 0;
                     }
                 }
             });
@@ -201,5 +189,109 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    /* =========================================
+       Flipbook Logic
+       ========================================= */
+
+    const flipbooks = document.querySelectorAll('.aspen-flipbook-wrapper');
+
+    flipbooks.forEach(wrapper => {
+        const path = wrapper.dataset.path;
+        const filename = wrapper.dataset.filename;
+        const ext = wrapper.dataset.ext;
+        const count = parseInt(wrapper.dataset.count);
+        const speed = parseInt(wrapper.dataset.speed) || 100; 
+
+        const imgEl = wrapper.querySelector('.flipbook-img');
+        const stage = wrapper.querySelector('.flipbook-stage');
+        const slider = wrapper.querySelector('.flip-slider');
+        const playBtn = wrapper.querySelector('.flip-play-btn');
+        const counter = wrapper.querySelector('.frame-counter');
+        
+        let currentFrame = 1;
+        let isPlaying = false;
+        let interval;
+        const images = []; 
+
+        const preloadImages = () => {
+            wrapper.classList.add('loading');
+            let loadedCount = 0;
+
+            for (let i = 1; i <= count; i++) {
+                const img = new Image();
+                img.src = `${path}${filename}${i}${ext}`;
+                img.onload = () => {
+                    loadedCount++;
+                    if (loadedCount === count) {
+                        wrapper.classList.remove('loading');
+                        console.log(`Flipbook loaded: ${filename}`);
+                    }
+                };
+                images[i] = img.src; 
+            }
+        };
+
+        const updateFrame = (index) => {
+            if (index < 1) index = 1;
+            if (index > count) index = count;
+            
+            currentFrame = index;
+            
+            if (images[index]) {
+                imgEl.src = images[index];
+            } else {
+                imgEl.src = `${path}${filename}${index}${ext}`;
+            }
+            
+            slider.value = index;
+            counter.textContent = `${index} / ${count}`;
+        };
+
+        stage.addEventListener('mousemove', (e) => {
+            if (isPlaying) return; 
+
+            const rect = stage.getBoundingClientRect();
+            const x = e.clientX - rect.left; 
+            const width = rect.width;
+            
+            const percent = Math.max(0, Math.min(1, x / width));
+            const frameIndex = Math.floor(percent * count) + 1;
+            
+            updateFrame(frameIndex);
+        });
+
+        slider.addEventListener('input', (e) => {
+            stopAutoPlay();
+            updateFrame(parseInt(e.target.value));
+        });
+
+        const startAutoPlay = () => {
+            isPlaying = true;
+            playBtn.classList.add('playing');
+            
+            interval = setInterval(() => {
+                let next = currentFrame + 1;
+                if (next > count) next = 1; 
+                updateFrame(next);
+            }, speed);
+        };
+
+        const stopAutoPlay = () => {
+            isPlaying = false;
+            playBtn.classList.remove('playing');
+            clearInterval(interval);
+        };
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                stopAutoPlay();
+            } else {
+                startAutoPlay();
+            }
+        });
+
+        preloadImages();
+    });
 
 });

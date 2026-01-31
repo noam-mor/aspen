@@ -141,8 +141,6 @@ a {
     --header-and-content: 1rem;
 }
 
-
-
 /* --- Files --- */
 /* --- General --- */
 
@@ -1149,7 +1147,7 @@ body:has( .image-container:hover ) {
 }
 
 .seek-slider {
-    -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 100%;
     background: transparent;
@@ -1162,7 +1160,7 @@ body:has( .image-container:hover ) {
 }
 
 .seek-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
+    appearance: none;
     width: 5px;
     height: 45px;
     background: var(--c-text);
@@ -1171,11 +1169,10 @@ body:has( .image-container:hover ) {
 }
 
 .time-display {
-    font-family: monospace;
     font-size: var(--running-text);
     font-weight: var(--fw-semibold);
     color: var(--c-text);
-    min-width: 120px;
+    min-width: 110px;
     text-align: left;
     direction: ltr;
 }
@@ -1403,4 +1400,158 @@ body.cinema-mode .film-info p:not(:last-child)::after {
     width: 100%;
     height: 100%;
     display: block;
+}
+
+
+
+/* ---------------------------- */
+/* -- issue_3_item_9.html -- */
+/* ---------------------------- */
+
+.flipbook-header {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: center;
+    font-family: var(--font-primary-family);
+    font-weight: var(--fw-regular);
+    font-size: var(--h2-text);
+    text-align: center;
+}
+
+.flipbook-header .artist, .flipbook-header .work {
+    font-family: var(--font-primary-family);
+    font-weight: var(--fw-bold);
+    font-size: var(--h2-text);
+    color: var(--c-text-light);
+}
+
+.flipbook-header .work {
+    font-weight: var(--fw-regular);
+    color: var(--c-text);
+}
+
+.flipbook-more-info {
+    font-family: var(--font-primary-family);
+    font-weight: var(--fw-thin);
+    color: var(--c-text-meta);
+    font-size: var(--running-text-small);
+    text-align: center;
+    padding-bottom: var(--header-and-content);
+}
+
+.aspen-flipbook-wrapper {
+    border: 1px solid var(--c-text);
+    padding: 15px;
+    background: var(--c-background);
+    user-select: none;
+}
+
+.flipbook-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9; 
+    overflow: hidden;
+    cursor: move;
+    margin-bottom: 15px;
+}
+
+.flipbook-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none; 
+}
+
+.aspen-flipbook-wrapper.loading .loading-overlay {
+    opacity: 1;
+}
+
+.flipbook-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.flip-play-btn {
+    background: var(--c-text);
+    color: var(--c-background);
+    border: none;
+    padding: 8px 20px;
+    font-family: var(--font-primary-family);
+    cursor: pointer;
+    font-size: var(--running-text-small);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+}
+
+.flip-play-btn:hover {
+    opacity: 0.8;
+}
+
+.flip-play-btn .icon {
+    width: 10px;
+    height: 10px;
+    background: currentColor;
+    display: block;
+}
+
+.flip-play-btn .icon.play-icon {
+    clip-path: polygon(0 0, 0% 100%, 100% 50%);
+}
+
+.flip-play-btn.playing .icon {
+    clip-path: none;
+}
+
+.flip-play-btn.playing .label::after {
+    content: "עצור";
+}
+.flip-play-btn .label { font-size: 0; } 
+.flip-play-btn .label::after { content: "ניגון"; font-size: 0.9rem; }
+.flip-play-btn.playing .label::after { content: "עצור"; }
+
+
+.flip-slider {
+    flex-grow: 1;
+    appearance: none;
+    height: 2px;
+    background: var(--c-border);
+    outline: none;
+}
+
+.flip-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--c-text);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.frame-counter {
+    font-family: var(--font-primary-family);
+    font-size: var(--running-text-small);
+    min-width: 60px;
+    text-align: left;
+    direction: ltr;
+}
+
+.flip-books-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;  
+    gap: 6rem;   
+    margin-bottom: 5.5rem; 
+    margin-top: 2.5rem;  
+    flex-wrap: wrap;    
+}
+
+.flip-books-gallery .flipbook-section {
+    flex: 1;
+    max-width: 450px;
+    min-width: 300px;
+    margin: 0;
 }
