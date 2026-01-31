@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.aspen-audio-wrapper').forEach(wrapper => {
         const audio = wrapper.querySelector('audio');
         const playBtn = wrapper.querySelector('.play-pause-btn');
-        const icon = playBtn.querySelector('.icon');
         const label = playBtn.querySelector('.label');
         const slider = wrapper.querySelector('.seek-slider');
         const fill = wrapper.querySelector('.progress-fill');
@@ -80,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
        2. Interactive Toggles (ציטוטים + תובנות)
        ========================================= */
     
-    // בוחר גם את הציטוטים וגם את ה-Insights (תעלומת הבס)
+    // בוחר גם את הציטוטים וגם את ה-Insights
     const interactives = document.querySelectorAll('.interactive-quote, .quote-wrapper, .interactive-insight, .insight-wrapper');
     
     interactives.forEach(wrapper => {
@@ -111,5 +110,96 @@ document.addEventListener('DOMContentLoaded', () => {
             body.classList.remove('dim-mode');
         });
     });
+
+
+    /* =========================================
+       4. Films Gallery Logic (גלריית סרטים + Cinema Mode)
+       ========================================= */
+    
+    const track = document.querySelector('.films-track');
+    
+    if (track) {
+        const slides = Array.from(track.children);
+        const nextBtn = document.querySelector('.next-film');
+        const prevBtn = document.querySelector('.prev-film');
+        const currentCounter = document.querySelector('.gallery-counter .current');
+        const totalCounter = document.querySelector('.gallery-counter .total');
+        
+        let currentIndex = 0;
+
+        // עדכון סך כל הסרטים
+        if (totalCounter) {
+            totalCounter.textContent = slides.length;
+        }
+
+        // --- הוספה חדשה: ניהול אפקט החושך (Cinema Mode) ---
+        const handleCinemaMode = () => {
+            slides.forEach(slide => {
+                const video = slide.querySelector('video');
+                if (video) {
+                    // כשהסרט מתחיל לנגן -> מחשיכים
+                    video.addEventListener('play', () => {
+                        document.body.classList.add('cinema-mode');
+                    });
+
+                    // כשהסרט עוצר או נגמר -> מחזירים אור
+                    video.addEventListener('pause', () => {
+                        document.body.classList.remove('cinema-mode');
+                    });
+                    video.addEventListener('ended', () => {
+                        document.body.classList.remove('cinema-mode');
+                    });
+                }
+            });
+        };
+        // הפעלת הפונקציה
+        handleCinemaMode();
+        // ---------------------------------------------------
+
+        const updateGallery = (index) => {
+            const amountToMove = index * 100;
+            track.style.transform = `translateX(${amountToMove}%)`;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+
+            if (currentCounter) {
+                currentCounter.textContent = index + 1;
+            }
+
+            // עצירת וידאו במעבר שקופית
+            slides.forEach((slide, i) => {
+                if (i !== index) {
+                    const video = slide.querySelector('video');
+                    if (video) {
+                        video.pause(); // זה גם יבטל את ה-cinema-mode אוטומטית בגלל ה-Listener למעלה
+                        video.currentTime = 0; // איפוס להתחלה (אופציונלי)
+                    }
+                }
+            });
+        };
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < slides.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                updateGallery(currentIndex);
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = slides.length - 1;
+                }
+                updateGallery(currentIndex);
+            });
+        }
+    }
 
 });
