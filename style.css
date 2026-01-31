@@ -360,11 +360,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: var(--end-of-secton-spacing);
-}
-
-.issue-1-item-3 .author-container {
-    padding-bottom: 0;
 }
 
 .quote.big-text.author,
@@ -741,7 +736,6 @@ body {
     padding: 0;
     display: inline-flex; 
     align-items: center;
-    padding-bottom: 0;
 }
 
 .issue-1-item-3 .insight.first-layer p {
