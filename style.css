@@ -964,8 +964,8 @@ body:has( .image-container:hover ) {
     display: flex;
     flex-direction: column;
     margin-bottom: var(--end-of-secton-spacing);
-    margin-top: var(--header-and-content);
-    border: 0.5px solid var(--c-text-meta);
+    margin-top: var(--small-spacing-item);
+    /* border: 0.5px solid var(--c-text-meta); */
     padding: 40px 60px 40px 60px;
 }
 
@@ -978,6 +978,26 @@ body:has( .image-container:hover ) {
     padding-bottom: 40px;
     align-self: flex-end;
     justify-self: center;
+}
+
+.letter-container {
+    position: relative;
+    padding: 40px;
+    background-color: var(--c-background); 
+    border: 1px solid transparent;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+    cursor: grab;
+}
+
+.letter-container:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    border-color: var(--c-border);
+    z-index: 10; 
+}
+
+.letter-image-container img {
+    transition: transform 0.5s ease;
 }
 
 /* --------------------------- */
