@@ -3,17 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אודות - הזמנת מנוי</title>
+    <title>הזמנת מנוי</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        #gift-section-wrapper {
-            display: none; 
-            border: 1px dashed #ccc;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 8px;
-        }
-    </style>
 </head>
 <body>
     <div class="wrapper">
@@ -31,59 +22,67 @@
             <div class="hero-section">
                 <div class="hero-content">
                     <h1 class="hero-title">אספן אוסף אוספים לאיסוף, שנאספו לאוסף הנוסף.</h1>
-                    <p class="hero-subtitle">טופס הזמנה</p>
+                    <h2 class="hero-subtitle">טופס הזמנה</h2>
                 </div>
             </div>
 
             <div class="order-form section">
-                <h2 class="section-title">תעריפי מנוי בארצות הברית</h2>
-                <p>תעריפי מנוי בארה"ב:</p>
-                <ul>
-                    <li>שנה אחת: $12.95</li>
-                    <li>שנתיים: $23.95</li>
-                </ul>
-                <p>הזמנות מקנדה ומחו"ל (לתשלום במטבע ארה"ב) הוסף $2 לסכומים הנ"ל</p>
-                <p> עותקים בודדים וגיליונות קודמים עולים $4 כל אחד.</p>
+                <div class="form-section payment-info">
+                    <p class="section-title">תעריפי מנוי בארצות הברית</p>
+                    <ul>
+                        <li>שנה אחת: $12.95</li>
+                        <li>שנתיים: $23.95</li>
+                    </ul>
+                    <p>הזמנות מקנדה ומחו"ל (לתשלום במטבע ארה"ב) הוסף $2 לסכומים הנ"ל</p>
+                    <p> עותקים בודדים וגיליונות קודמים עולים $4 כל אחד.</p>
+                    <p>אם נשלח בדואר - שלח דואר אל: ASPEN, 333 Sixth Avenue, New York, N.Y. 10014</p>
+                </div>
 
                 <form action="#" method="post" class="order-form" id="subscriptionForm">
-                    
-                    <!-- <h2 class="form-subtitle">משך המנוי</h2>  -->
-                    <label for="time">משך המנוי</label>
-                    <select id="time" name="time" required>
-                        <option value="1_year">שנה</option>
-                        <option value="2_years">שנתיים</option>
-                    </select>
+                    <div class="form-section">
+                        <!-- <h2 class="form-subtitle">משך המנוי</h2>  -->
+                        <label for="time">משך המנוי</label>
+                        <select id="time" name="time" required>
+                            <option value="1_year">שנה</option>
+                            <option value="2_years">שנתיים</option>
+                        </select>
+                    </div>
+                    <div class="form-section address">
+                        <h2 class="form-subtitle">פרטי משלוח (מזמין)</h2>
+                        <label for="name">שם מלא</label>
+                        <input type="text" id="name" name="name" required>
 
-                    <h2 class="form-subtitle">פרטי משלוח (מזמין)</h2>
-                    <label for="name">שם מלא</label>
-                    <input type="text" id="name" name="name" required>
+                        <label for="address">כתובת</label>
+                        <input type="text" id="address" name="address" required>
 
-                    <label for="address">כתובת</label>
-                    <input type="text" id="address" name="address" required>
+                        <label for="city">עיר</label>
+                        <input type="text" id="city" name="city" required>
 
-                    <label for="city">עיר</label>
-                    <input type="text" id="city" name="city" required>
+                        <label for="state">מדינה</label>
+                        <input type="text" id="state" name="state" required>
 
-                    <label for="state">מדינה</label>
-                    <input type="text" id="state" name="state" required>
+                        <label for="postal-code">מיקוד</label>
+                        <input type="text" id="postal-code" name="postal-code" required>
+                    </div>
 
-                    <label for="postal-code">מיקוד</label>
-                    <input type="text" id="postal-code" name="postal-code" required>
-
+                    <div class="form-section">
                     <!-- <h2 class="form-subtitle">סוג מנוי</h2>  -->
-                    <label for="club-status">סוג מנוי</label>
-                    <select id="club-status" name="club-status" required>
-                        <option value="new">מנוי חדש</option>
-                        <option value="renew">חידוש מנוי</option>
-                    </select>
-
-                    <label for="is-gift" style="font-weight: bold; margin-top: 20px; display:block;">האם זה מתנה?</label>
-                    <select id="is-gift" name="is-gift" required onchange="toggleGiftSection()">
-                        <option value="no">לא</option>
-                        <option value="yes">כן</option>
-                    </select>
+                        <label for="club-status">סוג מנוי</label>
+                        <select id="club-status" name="club-status" required>
+                            <option value="new">מנוי חדש</option>
+                            <option value="renew">חידוש מנוי</option>
+                        </select>
+                    </div>
                     
-                    <div id="gift-section-wrapper">
+                    <div class="form-section"></div>
+                        <label for="is-gift" style="font-weight: bold; margin-top: 20px; display:block;">האם זה מתנה?</label>
+                        <select id="is-gift" name="is-gift" required onchange="toggleGiftSection()">
+                            <option value="no">לא</option>
+                            <option value="yes">כן</option>
+                        </select>
+                    </div>
+                    
+                    <div id="gift-section-wrapper" class="form-section gift-section-wrapper">
                         <h2 class="form-subtitle">פרטי משלוח עבור מתנה</h2>
                         
                         <label for="gift_recipient">עבור מי המתנה?</label>
@@ -112,28 +111,27 @@
                             <option value="xmas">חג המולד</option>
                         </select>
                     </div>
-                    <hr style="margin: 20px 0;">
 
-                    <label for="payment-amount">סכום לתשלום</label>
-                    <input type="text" id="payment-amount" name="payment-amount" required>
-                    <label for="payment-method">כל ההזמנות לתשלום מראש</label>
+                    <!-- <div class="form-section"></div> -->
+                        <!-- <p>אם נשלח בדואר - שלח דואר אל: ASPEN, 333 Sixth Avenue, New York, N.Y. 10014</p> -->
+                        <!-- <label for="payment-amount">סכום לתשלום</label>
+                        <input type="text" id="payment-amount" name="payment-amount" required>
+                        <label for="payment-method">כל ההזמנות לתשלום מראש</label> -->
+                    <!-- </div> -->
 
-                    <button type="submit" class="submit-button">שלח הזמנה</button>
+                    <div class="form-section"></div>
+                        <button type="submit" class="submit-button">שלח הזמנה</button>
+                    </div>
                 </form>
-
-                <p>אם נשלח בדואר - שלח דואר אל: ASPEN, 333 Sixth Avenue, New York, N.Y. 10014</p>
-                
             </div>
         </div>
-
-        <div class="site footer">
-            <div class="item format-details">
-                <p class="text format-details">פורמט מקורי: דף בודד, 5.5 על 8.5 אינץ'.</p>
-                <p class="credits-and-rights">עובד לאינטרנט על ידי אנדרו סטפורד.</p>
-            </div>
-        </div>
-
     </div> 
+    <div class="site-footer">
+        <div class="item format-details">
+            <p class="text format-details">פורמט מקורי: דף בודד, 5.5 על 8.5 אינץ'.</p>
+            <p class="credits-and-rights">עובד לאינטרנט על ידי אנדרו סטפורד.</p>
+        </div>
+    </div>
 
     <script>
         function toggleGiftSection() {
