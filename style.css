@@ -741,18 +741,18 @@ body {
     float: right;
     width: 35%;
     max-width: 500px;
-    margin-left: var(--big-spacing-item);
-    margin-bottom: var(--big-spacing-item);
-    margin-top: var(--big-spacing-item);
+    padding-left: var(--big-spacing-item);
+    padding-bottom: var(--big-spacing-item);
+    padding-top: var(--big-spacing-item);
     clear: right; 
 }
 
 .issue_1_item_2 .article-section .image-wrapper-no-margin {
-    margin-left: var(--big-spacing-item);
+    padding-left: var(--big-spacing-item);
 }
 
 .issue_1_item_2 .article-section .image-wrapper.img-close-to-header, .issue_1_item_2 .article-section .image-wrapper.intro-img-jazz {
-    margin-top: 0;
+    padding-top: 0;
 }
 
 .issue_1_item_2 .article-section .image-wrapper:not(.image-gallery .image-wrapper):not(:has(.image.more-info)) .image-container {
@@ -795,6 +795,7 @@ body:has(.image-container:hover) .image-wrapper:hover .text {
 .image-gallery {
     display: flex;
     gap: 2rem;
+    padding: var(--big-spacing-item) 0 var(--spacing-item) 0;
 }
 
 .image-container {
@@ -816,7 +817,7 @@ body:has(.image-container:hover) .image-wrapper:hover .text {
 .image-wrapper {
     flex: 1;
     position: relative;
-    margin: var(--big-spacing-item) 0;
+    /* margin: var(--big-spacing-item) 0; */
     transition: all 0.3s ease;
 }
 
