@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* =========================================
-       1. Audio Player Logic
+       Audio Player Logic
        ========================================= */
     
     const formatTime = (seconds) => {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentTimeEl = wrapper.querySelector('.current-time');
         const durationEl = wrapper.querySelector('.duration-time');
 
-        if(audio) { // בדיקה למניעת שגיאות אם אין אודיו בעמוד
+        if(audio) { 
             audio.addEventListener('loadedmetadata', () => {
                 durationEl.textContent = formatTime(audio.duration);
                 slider.max = Math.floor(audio.duration);
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       2. Interactive Toggles (Quotes/Insights)
+       Interactive Toggles (Quotes/Insights)
        ========================================= */
     
     const interactives = document.querySelectorAll('.interactive-quote, .quote-wrapper, .interactive-insight, .insight-wrapper');
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       3. Image Hover Effects 
+       Image Hover Effects 
        ========================================= */
     
     const activeImages = document.querySelectorAll('.image-wrapper, .image-container');
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       5. Flipbook Logic
+       Flipbook Logic
        ========================================= */
 
     const flipbooks = document.querySelectorAll('.aspen-flipbook-wrapper');
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       6. External Links Handling
+       External Links Handling
        ========================================= */
 
     const externalLinks = document.querySelectorAll('a.link_to_aspen');
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       7. Mobile Index Interaction (Double Tap)
+       Mobile Index Interaction 
        ========================================= */
     
     const issueRows = document.querySelectorAll('.issue-row');
@@ -334,16 +334,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================
-       8. Order Form Logic (Form Logic)
+       Order Form Logic
        ========================================= */
-    
-    // זיהוי האלמנטים
+ 
     const isGiftSelect = document.getElementById('is-gift');
     const giftSection = document.getElementById('gift-section-wrapper');
     const isCardSelect = document.getElementById('is-card');
     const cardSection = document.getElementById('card-details-wrapper');
 
-    // 1. טיפול בהצגת אזור המתנה
     if (isGiftSelect && giftSection) {
         const giftInputs = giftSection.querySelectorAll('input, .address select');
 
@@ -355,8 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 giftSection.style.display = 'none';
                 giftInputs.forEach(input => input.removeAttribute('required'));
-                
-                // איפוס הכרטיס אם סוגרים את המתנה
+
                 if (isCardSelect) {
                     isCardSelect.value = 'no';
                     if (cardSection) cardSection.style.display = 'none';
@@ -365,7 +362,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. טיפול בהצגת אזור הכרטיס
     if (isCardSelect && cardSection) {
         isCardSelect.addEventListener('change', function() {
             if (this.value === 'yes') {
@@ -377,4 +373,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-}); // סגירת ה-DOMContentLoaded הראשי
+});

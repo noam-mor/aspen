@@ -625,7 +625,7 @@ body {
 
 .note-link:hover {
     color: var(--c-text);
-    text-decoration: underline;
+    /* text-decoration: underline; */
     transition: color 0.3s ease;
 }
 
@@ -1938,10 +1938,139 @@ a:hover {
 }
 
 
-/* =========================================
-   RESPONSIVE DESIGN (REVISED)
-   ========================================= */
+/* --------------------------- */
+/* --- issue_4_item_7.html --- */
+/* --------------------------- */
 
+.content.article.braille-trail .article.stations {
+    display: grid;
+    grid-template-columns: 1fr 2fr; 
+    column-gap: 60px;
+    row-gap: 20px;
+    align-items: start;
+    position: relative;
+    /* max-width: 1300px; */
+    margin: 0 auto;
+}
+
+.braille-trail .article-header, 
+.braille-trail .intro-section, 
+.braille-trail .intro-image,
+.braille-trail .separator-line,
+.braille-trail .quote-section,
+.braille-trail .article-section.letter,
+#intro {
+    grid-column: 1 / -1; 
+    width: 100%;
+    max-width: 1000px;
+    justify-self: center;
+}
+
+.article-station.station-nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: var(--small-spacing-item); 
+    z-index: 10; 
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    grid-column: 1; 
+    height: fit-content;
+    align-self: start;
+}
+
+.station-nav .braille-image-item img, 
+.station-nav svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1));
+}
+
+.click-zone rect { fill: transparent; cursor: pointer; transition: all 0.2s; }
+.click-zone:hover rect { stroke: var(--c-text); stroke-width: 0.1px; fill: rgba(0,0,0,0.05); }
+
+.article-station:not(.station-nav) {
+    grid-column: 2; 
+    padding-top: var(--small-spacing-item);
+    padding-bottom: var(--small-spacing-item);
+}
+
+.station-header {
+    margin-bottom: 1.5rem;
+}
+
+.station-title-info {
+    color: var(--c-text-meta);
+    font-family: var(--font-shemi);
+    font-size: var(--running-text);
+}
+
+.station-content, 
+#intro {
+    display: flex;           
+    flex-direction: row; 
+    align-items: flex-start; 
+    gap: 40px; 
+    justify-content: space-between;
+}
+
+
+.station-text {
+    flex: 1; 
+}
+
+.station-text p {
+    font-size: var(--running-text);
+    /* margin-bottom: 0.7rem; */
+    /* text-indent: 2%; */
+    text-align: right; 
+    max-width: 1000px;
+    justify-self: center;
+}
+
+.station-title {
+    margin-top: var(--header-and-content);
+    text-indent: 0%;
+    font-size: var(--h2-text);
+    font-weight: var(--fw-bold);
+}
+
+.braille-image-container{
+    flex: 0 0 250px;
+    width: 250px;
+    padding: 6px;
+    background: var(--c-background);
+    border: 1px solid var(--c-border);
+    box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
+    transform: rotate(-2deg);
+    margin-top: 5px; 
+}
+
+.article-station:nth-child(even) .braille-image-container {
+    transform: rotate(2deg);
+}
+
+.braille-image-item img{
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: sepia(0.15) contrast(0.95);
+}
+
+#the-medium-is-the-massage, #mcluhan-and-g-b-leonard {
+    padding: var(--spacing-item);
+    text-align: right;
+    margin-top: var(--header-and-content);
+    margin-bottom: var(--end-of-secton-spacing);
+}
+
+#the-medium-is-the-massage .quote, #mcluhan-and-g-b-leonard .quote {
+    font-size: var(--medium-qoutes);
+    line-height: 1.4;
+}
+
+
+/* --- Tablet - break 1 --- */
 @media (max-width: 1024px) {
     :root {
         --h1-text: 2.2rem;
@@ -1969,28 +2098,23 @@ a:hover {
     }
 }
 
-/* --- Mobile --- */
+/* --- Mobile - break 2 --- */
 @media (max-width: 850px) {
 
-    /* 1. הקטנה דרמטית של פונטים ומרווחים כדי שהכל ייכנס למסך */
     :root {
         --running-text: 1rem;
         --running-text-small: 0.85rem;
-        
-        /* כותרות וציטוטים מוקטנים משמעותית */
         --h1-text: 1.8rem;
         --h2-text: 1.3rem;
         --h3-text: 1.1rem;
-        --big-qoutes: 1.6rem; /* הוקטן כדי להיכנס למסך בלי גלילה */
+        --big-qoutes: 1.6rem;
         --medium-qoutes: 1.3rem;
-        
         --spacing-item: 1.5rem;
         --big-spacing-item: 1.5rem;
-        --header-and-content: 0.5rem; /* צמצום רווחים אנכיים */
+        --header-and-content: 0.5rem; 
         --end-of-secton-spacing: 2rem;
     }
 
-    /* 2. Header (לוגו ותפריט) - קומפקטי */
     .site.header {
         position: relative;
         flex-direction: column;
@@ -2006,37 +2130,31 @@ a:hover {
         padding: 0 1rem;
     }
 
-    /* 3. עמוד המכתב - עיצוב A4 למובייל */
     .page.main-content.letter {
-        padding: 0 1rem; /* ביטול הפדינג העצום של הדסקטופ */
+        padding: 0 1rem; 
     }
 
     .letter-container {
-        width: 100%; /* רוחב מלא */
+        width: 100%; 
         margin-top: 1rem;
         margin-bottom: 2rem;
-        padding: 20px; /* שוליים פנימיים של דף */
-        
-        /* יצירת מראה של דף נייר עם גבול */
+        padding: 20px;
         border: 1px solid var(--c-text); 
-        /* box-shadow: 5px 5px 0px rgba(0,0,0,0.1);  */
     }
     
     .letter-container:hover {
-        transform: none; /* ביטול האפקט המרחף במובייל */
+        transform: none;
     }
 
-    /* 4. ביטול טורים (Grid & Flex) */
     .intro-section, 
     .about-intro-section, 
     .specs-layout,
-    .page.main-content { /* ביטול ה-Sticky של עמוד אודות */
+    .page.main-content { 
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
     }
-    
-    /* בעמוד אודות - הסרגל יהיה למעלה רגיל */
+
     .sidebar-container {
         width: 100%;
         position: static;
@@ -2047,7 +2165,6 @@ a:hover {
         height: auto;
     }
 
-    /* 5. ביטול תמונות צפות (Float) וסידור מחדש */
     .issue_1_item_2 .article-section .image-wrapper:not(.image-gallery .image-wrapper):not(:has(.image.more-info)) {
         float: none;
         width: 100%;
@@ -2062,9 +2179,8 @@ a:hover {
         padding: 1rem 0;
     }
 
-    /* 6. אינדקס גליונות */
     .index-rows {
-        grid-template-columns: 1fr; /* טור אחד */
+        grid-template-columns: 1fr; 
     }
     
     .index-quote.section {
@@ -2076,19 +2192,16 @@ a:hover {
         display: none; 
     }
     
-    /* התאמת חשיפת הפרטים באינדקס למצב מובייל (נפתח בלחיצה) */
     .issue-specs {
         transition: all 0.3s ease;
     }
     
-    /* המחלקה הזו תתווסף ב-JS */
     .issue-row.mobile-active .issue-specs {
-        max-height: 500px; /* גובה מספיק לתוכן */
+        max-height: 500px;
         opacity: 1;
         margin-top: 10px;
     }
     
-    /* הסתרת החץ במובייל כברירת מחדל, והצגתו כשהשורה פעילה */
     .issue-row .arrow {
         opacity: 0; 
     }
@@ -2097,7 +2210,6 @@ a:hover {
         transform: translateX(0);
     }
 
-    /* 7. כפתורים וניווט */
     .page-navigation {
         flex-direction: column;
         gap: 1.5rem;
@@ -2112,5 +2224,45 @@ a:hover {
     .submit-button {
         padding: 15px;
         font-size: 1.5rem;
+    }
+    
+    .content.article.braille-trail .article.stations {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .article-station.station-nav {
+        position: static;
+        width: 100%;
+        order: -1; 
+        margin-bottom: 1rem;
+    }
+
+    .station-content, 
+    #intro {
+        flex-direction: column; 
+    }
+
+    .braille-image-container, 
+    .image-container {
+        width: 100%;
+        max-width: 100%;
+        flex: none;
+        margin-top: 20px;
+        transform: none; 
+        margin-right: 0;
+    }
+
+    .marked-text {
+        max-width: 100%;
+    }
+
+    .article-station:not(.station-nav) {
+        grid-column: auto;
+    }
+
+    #robert-b-lewis.article-station.letter {
+        padding: 1.5rem;
     }
 }
