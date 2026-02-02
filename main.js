@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* =========================================
-       Audio Player Logic
+       1. Audio Player Logic
        ========================================= */
     
     const formatTime = (seconds) => {
@@ -19,61 +19,60 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentTimeEl = wrapper.querySelector('.current-time');
         const durationEl = wrapper.querySelector('.duration-time');
 
-        audio.addEventListener('loadedmetadata', () => {
-            durationEl.textContent = formatTime(audio.duration);
-            slider.max = Math.floor(audio.duration);
-        });
+        if(audio) { // בדיקה למניעת שגיאות אם אין אודיו בעמוד
+            audio.addEventListener('loadedmetadata', () => {
+                durationEl.textContent = formatTime(audio.duration);
+                slider.max = Math.floor(audio.duration);
+            });
 
-        playBtn.addEventListener('click', () => {
-            if (audio.paused) {
-                document.querySelectorAll('audio').forEach(a => {
-                    if(a !== audio) { 
-                        a.pause(); 
-                        const otherWrapper = a.closest('.aspen-audio-wrapper');
-                        if (otherWrapper) {
-                             otherWrapper.querySelector('.play-pause-btn').classList.remove('playing');
-                             otherWrapper.querySelector('.label').textContent = "ניגון";
+            playBtn.addEventListener('click', () => {
+                if (audio.paused) {
+                    document.querySelectorAll('audio').forEach(a => {
+                        if(a !== audio) { 
+                            a.pause(); 
+                            const otherWrapper = a.closest('.aspen-audio-wrapper');
+                            if (otherWrapper) {
+                                otherWrapper.querySelector('.play-pause-btn').classList.remove('playing');
+                                otherWrapper.querySelector('.label').textContent = "ניגון";
+                            }
                         }
-                    }
-                });
+                    });
 
-                audio.play();
-                playBtn.classList.add('playing');
-                label.textContent = "עצור";
-            } else {
-                audio.pause();
+                    audio.play();
+                    playBtn.classList.add('playing');
+                    label.textContent = "עצור";
+                } else {
+                    audio.pause();
+                    playBtn.classList.remove('playing');
+                    label.textContent = "ניגון";
+                }
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                slider.value = audio.currentTime;
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+                
+                const percent = (audio.currentTime / audio.duration) * 100;
+                fill.style.width = `${percent}%`;
+            });
+
+            slider.addEventListener('input', () => {
+                audio.currentTime = slider.value;
+            });
+
+            audio.addEventListener('ended', () => {
                 playBtn.classList.remove('playing');
                 label.textContent = "ניגון";
-            }
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            slider.value = audio.currentTime;
-            currentTimeEl.textContent = formatTime(audio.currentTime);
-            
-            const percent = (audio.currentTime / audio.duration) * 100;
-            fill.style.width = `${percent}%`;
-        });
-
-        // גרירת הסליידר
-        slider.addEventListener('input', () => {
-            audio.currentTime = slider.value;
-        });
-
-        // איפוס בסיום השיר
-        audio.addEventListener('ended', () => {
-            playBtn.classList.remove('playing');
-            label.textContent = "ניגון";
-            fill.style.width = '0%';
-        });
+                fill.style.width = '0%';
+            });
+        }
     });
 
 
     /* =========================================
-       Interactive Toggles
+       2. Interactive Toggles (Quotes/Insights)
        ========================================= */
     
-    // בוחר גם את הציטוטים וגם את ה-Insights
     const interactives = document.querySelectorAll('.interactive-quote, .quote-wrapper, .interactive-insight, .insight-wrapper');
     
     interactives.forEach(wrapper => {
@@ -81,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                // הוספת/הסרת קלאס 'open' שפותח את האקורדיון ומסובב את החץ
                 wrapper.classList.toggle('open');
             });
         }
@@ -89,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       Image Hover Effects 
+       3. Image Hover Effects 
        ========================================= */
     
     const activeImages = document.querySelectorAll('.image-wrapper, .image-container');
@@ -107,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* =========================================
-       Films Gallery Logic + Cinema Mode
+       4. Films Gallery Logic + Cinema Mode
        ========================================= */
     
     const track = document.querySelector('.films-track');
@@ -190,8 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
     /* =========================================
-       Flipbook Logic
+       5. Flipbook Logic
        ========================================= */
 
     const flipbooks = document.querySelectorAll('.aspen-flipbook-wrapper');
@@ -225,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     loadedCount++;
                     if (loadedCount === count) {
                         wrapper.classList.remove('loading');
-                        console.log(`Flipbook loaded: ${filename}`);
+                        // console.log(`Flipbook loaded: ${filename}`);
                     }
                 };
                 images[i] = img.src; 
@@ -294,4 +293,88 @@ document.addEventListener('DOMContentLoaded', () => {
         preloadImages();
     });
 
-});
+
+    /* =========================================
+       6. External Links Handling
+       ========================================= */
+
+    const externalLinks = document.querySelectorAll('a.link_to_aspen');
+    
+    externalLinks.forEach(link => {
+        link.setAttribute('target', '_blank'); 
+        link.setAttribute('rel', 'noopener noreferrer'); 
+        link.style.cursor = "alias"; 
+    });
+
+
+    /* =========================================
+       7. Mobile Index Interaction (Double Tap)
+       ========================================= */
+    
+    const issueRows = document.querySelectorAll('.issue-row');
+
+    if (issueRows.length > 0) {
+        issueRows.forEach(row => {
+            row.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    if (!this.classList.contains('mobile-active')) {
+                        e.preventDefault(); 
+                        issueRows.forEach(r => r.classList.remove('mobile-active'));
+                        this.classList.add('mobile-active');
+                    }
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024 && !e.target.closest('.issue-row')) {
+                issueRows.forEach(r => r.classList.remove('mobile-active'));
+            }
+        });
+    }
+
+    /* =========================================
+       8. Order Form Logic (Form Logic)
+       ========================================= */
+    
+    // זיהוי האלמנטים
+    const isGiftSelect = document.getElementById('is-gift');
+    const giftSection = document.getElementById('gift-section-wrapper');
+    const isCardSelect = document.getElementById('is-card');
+    const cardSection = document.getElementById('card-details-wrapper');
+
+    // 1. טיפול בהצגת אזור המתנה
+    if (isGiftSelect && giftSection) {
+        const giftInputs = giftSection.querySelectorAll('input, .address select');
+
+        isGiftSelect.addEventListener('change', function() {
+            if (this.value === 'yes') {
+                giftSection.style.display = 'block';
+                giftSection.style.animation = 'fadeIn 0.5s ease';
+                giftInputs.forEach(input => input.setAttribute('required', ''));
+            } else {
+                giftSection.style.display = 'none';
+                giftInputs.forEach(input => input.removeAttribute('required'));
+                
+                // איפוס הכרטיס אם סוגרים את המתנה
+                if (isCardSelect) {
+                    isCardSelect.value = 'no';
+                    if (cardSection) cardSection.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    // 2. טיפול בהצגת אזור הכרטיס
+    if (isCardSelect && cardSection) {
+        isCardSelect.addEventListener('change', function() {
+            if (this.value === 'yes') {
+                cardSection.style.display = 'block';
+                cardSection.style.animation = 'fadeIn 0.5s ease';
+            } else {
+                cardSection.style.display = 'none';
+            }
+        });
+    }
+
+}); // סגירת ה-DOMContentLoaded הראשי

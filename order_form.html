@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הזמנת מנוי</title>
     <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -21,7 +22,7 @@
 
             <div class="hero-section">
                 <div class="hero-content">
-                    <h1 class="hero-title">אספן אוסף אוספים לאיסוף, שנאספו לאוסף הנוסף לאספן אוסף
+                    <h1 class="hero-title">אספן אוסף אוספים לאיסוף, שנאספו לאוסף הנוסף לאספן אוסף</h1>
                 </div>
             </div>
 
@@ -39,13 +40,8 @@
                 <form action="#" method="post" class="order-form" id="subscriptionForm">
                     <div class="form-section">
                         <h2 class="hero-subtitle">טופס הזמנה</h2>
-                        <!-- <h2 class="form-subtitle">משך המנוי</h2>  -->
-                        <!-- <label for="time">משך המנוי</label>
-                        <select id="time" name="time" required>
-                            <option value="1_year">שנה</option>
-                            <option value="2_years">שנתיים</option>
-                        </select> -->
                     </div>
+                    
                     <div class="form-section address">
                         <h2 class="form-subtitle">פרטי משלוח</h2>
                         <label for="name">שם מלא</label>
@@ -78,48 +74,56 @@
                         </select>
                     </div>
                     
-                    <div class="form-section"></div>
-                        <h2 for="is-gift">האם זה מתנה?</h2>
-                        <select id="is-gift" name="is-gift" required onchange="toggleGiftSection()">
+                    <div class="form-section">
+                        <h2 class="form-subtitle">מתנה</h2>
+                        <label for="is-gift" style="font-weight: bold;">האם זה מתנה?</label>
+                        <select id="is-gift" name="is-gift" required>
                             <option value="no">לא</option>
                             <option value="yes">כן</option>
                         </select>
+                    </div>
 
-                        <div id="gift-section-wrapper" class="form-section gift-section-wrapper">
-                        <h2 class="form-subtitle">פרטי משלוח עבור מתנה</h2>
+                    <div id="gift-section-wrapper" class="form-section gift-section-wrapper">
                         
-                        <label for="gift recipient">עבור מי המתנה?</label>
-                        <input type="text" id="gift_recipient" name="gift_recipient">
+                        <div class="form-section address">
+                            <h2 class="form-subtitle">פרטי משלוח עבור מתנה</h2>
+                            
+                            <label for="gift_recipient">עבור מי המתנה?</label>
+                            <input type="text" id="gift_recipient" name="gift_recipient">
 
-                        <label for="gift sender">ממי המתנה?</label>
-                        <input type="text" id="gift_sender" name="gift_sender">
+                            <label for="gift_sender">ממי המתנה?</label>
+                            <input type="text" id="gift_sender" name="gift_sender">
 
-                        <label for="gift address">כתובת למשלוח המתנה</label>
-                        <input type="text" id="gift_address" name="gift_address">
+                            <label for="gift_address">כתובת למשלוח המתנה</label>
+                            <input type="text" id="gift_address" name="gift_address">
 
-                        <label for="gift city">עיר</label>
-                        <input type="text" id="gift_city" name="gift_city">
+                            <label for="gift_city">עיר</label>
+                            <input type="text" id="gift_city" name="gift_city">
 
-                        <label for="gift state">מדינה</label>
-                        <input type="text" id="gift_state" name="gift_state">
+                            <label for="gift_state">מדינה</label>
+                            <input type="text" id="gift_state" name="gift_state">
 
-                        <label for="gift postal_code">מיקוד</label>
-                        <input type="text" id="gift_postal_code" name="gift_postal_code">
-                        
-                        <h2 for="is-gift">האם לשלוח כרטיס?</h2>
-                        <select id="is-gift" name="is-gift" required onchange="toggleGiftSection()">
-                            <option value="no">לא</option>
-                            <option value="yes">כן</option>
-                        </select>
+                            <label for="gift_postal_code">מיקוד</label>
+                            <input type="text" id="gift_postal_code" name="gift_postal_code">
+                        </div>
 
-                        <div id="gift-section-wrapper" class="form-section gift-section-wrapper">
-                            <label for="gift type">מה חוגגים?</label>
-                            <select id="gift_type" name="gift_type">
-                                <option value="bday">אוסף חדש</option>
-                                <option value="bday">יום הולדת</option>
-                                <option value="gift">מתנה כללית</option>
-                                <option value="xmas">חג המולד</option>
+                        <div class="form-section">
+                            <h2 class="form-subtitle card-question">האם לשלוח כרטיס?</h2>
+                            
+                            <select id="is-card" name="is-card">
+                                <option value="no">לא</option>
+                                <option value="yes">כן</option>
                             </select>
+
+                            <div id="card-details-wrapper" class="gift-section-wrapper">
+                                <label for="gift_type">מה חוגגים?</label>
+                                <select id="gift_type" name="gift_type">
+                                    <option value="new_collection">אוסף חדש</option>
+                                    <option value="bday">יום הולדת</option>
+                                    <option value="gift">מתנה כללית</option>
+                                    <option value="xmas">פסח</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     
@@ -168,25 +172,5 @@
             <p class="credits-and-rights">עובד לאינטרנט על ידי אנדרו סטפורד.</p>
         </div>
     </div>
-
-    <script>
-        function toggleGiftSection() {
-            const isGiftSelect = document.getElementById('is-gift');
-            const giftSection = document.getElementById('gift-section-wrapper');
-            const giftInputs = giftSection.querySelectorAll('input, select');
-
-            if (isGiftSelect.value === 'yes') {
-                giftSection.style.display = 'block';
-                giftInputs.forEach(input => {
-                    input.setAttribute('required', '');
-                });
-            } else {
-                giftSection.style.display = 'none';
-                giftInputs.forEach(input => {
-                    input.removeAttribute('required');
-                });
-            }
-        }
-    </script>
 </body>
 </html>
