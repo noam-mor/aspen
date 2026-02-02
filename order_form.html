@@ -21,8 +21,7 @@
 
             <div class="hero-section">
                 <div class="hero-content">
-                    <h1 class="hero-title">אספן אוסף אוספים לאיסוף, שנאספו לאוסף הנוסף.</h1>
-                    <h2 class="hero-subtitle">טופס הזמנה</h2>
+                    <h1 class="hero-title">אספן אוסף אוספים לאיסוף, שנאספו לאוסף הנוסף לאספן אוסף
                 </div>
             </div>
 
@@ -33,22 +32,22 @@
                         <li>שנה אחת: $12.95</li>
                         <li>שנתיים: $23.95</li>
                     </ul>
-                    <p>הזמנות מקנדה ומחו"ל (לתשלום במטבע ארה"ב) הוסף $2 לסכומים הנ"ל</p>
-                    <p> עותקים בודדים וגיליונות קודמים עולים $4 כל אחד.</p>
-                    <p>אם נשלח בדואר - שלח דואר אל: ASPEN, 333 Sixth Avenue, New York, N.Y. 10014</p>
+                    <p>הזמנות מקנדה ומחו"ל (לתשלום במטבע ארה"ב) הוסף $2 לסכומים הנ"ל. עותקים בודדים וגיליונות קודמים עולים $4 כל אחד.</p>
+                    <p><strong>אם נשלח בדואר - שלח דואר אל</strong> ASPEN, 333 Sixth Avenue, New York, N.Y. 10014</p>
                 </div>
 
                 <form action="#" method="post" class="order-form" id="subscriptionForm">
                     <div class="form-section">
+                        <h2 class="hero-subtitle">טופס הזמנה</h2>
                         <!-- <h2 class="form-subtitle">משך המנוי</h2>  -->
-                        <label for="time">משך המנוי</label>
+                        <!-- <label for="time">משך המנוי</label>
                         <select id="time" name="time" required>
                             <option value="1_year">שנה</option>
                             <option value="2_years">שנתיים</option>
-                        </select>
+                        </select> -->
                     </div>
                     <div class="form-section address">
-                        <h2 class="form-subtitle">פרטי משלוח (מזמין)</h2>
+                        <h2 class="form-subtitle">פרטי משלוח</h2>
                         <label for="name">שם מלא</label>
                         <input type="text" id="name" name="name" required>
 
@@ -66,66 +65,102 @@
                     </div>
 
                     <div class="form-section">
-                    <!-- <h2 class="form-subtitle">סוג מנוי</h2>  -->
-                        <label for="club-status">סוג מנוי</label>
+                        <h2 class="form-subtitle">מנוי</h2>
+                        <label for="club-status">סוג המנוי</label>
                         <select id="club-status" name="club-status" required>
                             <option value="new">מנוי חדש</option>
                             <option value="renew">חידוש מנוי</option>
                         </select>
+                        <label for="time">משך המנוי</label>
+                        <select id="time" name="time" required>
+                            <option value="1_year">שנה</option>
+                            <option value="2_years">שנתיים</option>
+                        </select>
                     </div>
                     
                     <div class="form-section"></div>
-                        <label for="is-gift" style="font-weight: bold; margin-top: 20px; display:block;">האם זה מתנה?</label>
+                        <h2 for="is-gift">האם זה מתנה?</h2>
                         <select id="is-gift" name="is-gift" required onchange="toggleGiftSection()">
                             <option value="no">לא</option>
                             <option value="yes">כן</option>
                         </select>
-                    </div>
-                    
-                    <div id="gift-section-wrapper" class="form-section gift-section-wrapper">
+
+                        <div id="gift-section-wrapper" class="form-section gift-section-wrapper">
                         <h2 class="form-subtitle">פרטי משלוח עבור מתנה</h2>
                         
-                        <label for="gift_recipient">עבור מי המתנה?</label>
+                        <label for="gift recipient">עבור מי המתנה?</label>
                         <input type="text" id="gift_recipient" name="gift_recipient">
 
-                        <label for="gift_sender">ממי המתנה?</label>
+                        <label for="gift sender">ממי המתנה?</label>
                         <input type="text" id="gift_sender" name="gift_sender">
 
-                        <label for="gift_address">כתובת למשלוח המתנה</label>
+                        <label for="gift address">כתובת למשלוח המתנה</label>
                         <input type="text" id="gift_address" name="gift_address">
 
-                        <label for="gift_city">עיר</label>
+                        <label for="gift city">עיר</label>
                         <input type="text" id="gift_city" name="gift_city">
 
-                        <label for="gift_state">מדינה</label>
+                        <label for="gift state">מדינה</label>
                         <input type="text" id="gift_state" name="gift_state">
 
-                        <label for="gift_postal_code">מיקוד</label>
+                        <label for="gift postal_code">מיקוד</label>
                         <input type="text" id="gift_postal_code" name="gift_postal_code">
-
-                        <h2 class="form-subtitle">אנא שלח כרטיס</h2> 
-                        <label for="gift_type">בחר אירוע</label>
-                        <select id="gift_type" name="gift_type">
-                            <option value="bday">יום הולדת</option>
-                            <option value="gift">מתנה כללית</option>
-                            <option value="xmas">חג המולד</option>
+                        
+                        <h2 for="is-gift">האם לשלוח כרטיס?</h2>
+                        <select id="is-gift" name="is-gift" required onchange="toggleGiftSection()">
+                            <option value="no">לא</option>
+                            <option value="yes">כן</option>
                         </select>
+
+                        <div id="gift-section-wrapper" class="form-section gift-section-wrapper">
+                            <label for="gift type">בחר אירוע</label>
+                            <select id="gift_type" name="gift_type">
+                                <option value="bday">יום הולדת</option>
+                                <option value="gift">מתנה כללית</option>
+                                <option value="xmas">חג המולד</option>
+                            </select>
+                        </div>
                     </div>
-
-                    <!-- <div class="form-section"></div> -->
-                        <!-- <p>אם נשלח בדואר - שלח דואר אל: ASPEN, 333 Sixth Avenue, New York, N.Y. 10014</p> -->
-                        <!-- <label for="payment-amount">סכום לתשלום</label>
-                        <input type="text" id="payment-amount" name="payment-amount" required>
-                        <label for="payment-method">כל ההזמנות לתשלום מראש</label> -->
-                    <!-- </div> -->
-
-                    <div class="form-section"></div>
+                    
+                    <div class="form-section">
                         <button type="submit" class="submit-button">שלח הזמנה</button>
                     </div>
                 </form>
             </div>
         </div>
     </div> 
+
+    <div class="page-navigation">
+        <div class="nav-section right">
+            <a href="index.html" class="nav-row">
+                <span class="arrow">«</span>
+                <div class="text-group">
+                    <span class="meta">הקודם</span>
+                    <span class="title">אינדקס גליונות</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="nav-section center">
+            <a href="#" class="nav-row back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
+                <div class="text-group-center">
+                    <span class="meta">טופס הזמנה</span>
+                    <span class="title">תחילת העמוד</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="nav-section left">
+            <a href="issue_1_index.html" class="nav-row">
+                <div class="text-group">
+                    <span class="meta">הבא</span>
+                    <span class="title">הקופסה השחורה | אינדקס</span>
+                </div>
+                <span class="arrow">»</span>
+            </a>
+        </div>
+    </div>
+
     <div class="site-footer">
         <div class="item format-details">
             <p class="text format-details">פורמט מקורי: דף בודד, 5.5 על 8.5 אינץ'.</p>
